@@ -4,15 +4,14 @@ function getComputerChoice() {
     
     let sorteoNumerico = Math.random();
     let sorteoCadena;
-    (sorteoNumerico <= 0.3333333333333333) ? sorteoCadena = 'rock'
-        : (sorteoNumerico <= 0.6666666666666666) ? sorteoCadena = 'paper'
-        : sorteoCadena = 'scissors';
+    (sorteoNumerico <= 0.3333333333333333) ? sorteoCadena = 'rock' : 
+        (sorteoNumerico <= 0.6666666666666666) ? sorteoCadena = 'paper' : sorteoCadena = 'scissors';
     return sorteoCadena;
 }
 
 function playRound(playerSelection, computerSelection) {
     
-    if(playerSelection.toLowerCase() === 'rock') {
+    if(playerSelection === 'rock') {
         if(computerSelection === 'rock') {
             console.log('Empate');
             return 0;
@@ -26,7 +25,7 @@ function playRound(playerSelection, computerSelection) {
             return 1;
         }
     }
-    else if(playerSelection.toLowerCase() === 'paper') {
+    else if(playerSelection === 'paper') {
         if(computerSelection === 'rock') {
             console.log('Ganaste. Paper gana a Scissors');
             return 1;
@@ -73,8 +72,38 @@ function game() {
     
     let playerPoints = 0;
     let computerPoints = 0;
+    let playerSelection;
+    
+    let piedra = document.querySelector('#boton-piedra');
+    let papel = document.querySelector('#boton-papel');
+    let tijera = document.querySelector('#boton-tijera');
 
-    for(let i=1; i<=5; i++) {
+    piedra.addEventListener('click', () => {
+        playerSelection = 'rock';
+    });
+    papel.addEventListener('click', () => {
+        playerSelection = 'paper';
+    });
+    tijera.addEventListener('click', () => {
+        playerSelection = 'scissors';
+    });
+
+    let computerSelection = getComputerChoice();
+    alert(`${playerSelection} - ${computerSelection}`);
+    let resultado = playRound(playerSelection, computerSelection);
+    if(resultado === 1) {
+        playerPoints++;
+        alert(`Ganaste ésta ronda. Resultado parcial: ${playerPoints} - ${computerPoints}`);
+    }
+    else if(resultado === -1) {
+        computerPoints++;
+        alert(`Perdiste ésta ronda. Resultado parcial: ${playerPoints} - ${computerPoints}`);
+    }
+    else {
+        alert(`Empataste ésta ronda. Resultado parcial: ${playerPoints} - ${computerPoints}`);
+    }
+
+    /*for(let i=1; i<=5; i++) {
         let playerSelection = prompt('Escriba opción');
         let computerSelection = getComputerChoice();
         alert(`${playerSelection.toLowerCase()} - ${computerSelection}`);
@@ -90,7 +119,7 @@ function game() {
         else {
             alert(`Empataste ésta ronda. Resultado parcial: ${playerPoints} - ${computerPoints}`);
         }
-    }
+    }*/
 
     finalResult(playerPoints, computerPoints);
 }
