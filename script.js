@@ -1,3 +1,105 @@
+
+/* rock --> 1
+   paper --> 2
+   scissors --> 3
+*/
+function getComputerSelection() {  //elección de la IA
+  let numero = parseInt(Math.random()*100);
+  return (numero<=33) ? 1 : 
+         (numero<=66) ? 2 :
+                        3;
+}
+
+function getPlayerSelection() {
+  let playerSelection;
+  do {
+    playerSelection = parseInt(prompt('Write 1 for stone, 2 for paper, or 3 for scissors'));
+    if ((playerSelection!==1 && playerSelection!==2 && playerSelection!==3) || playerSelection==='') {
+      alert('Your selection is incorrect, choose again');
+    }
+  }while((playerSelection!==1 && playerSelection!==2 && playerSelection!==3) || playerSelection==='');
+  return playerSelection;
+}
+
+function playRound(playerSelection, computerSelection) {
+  if (playerSelection==1) {
+    if (computerSelection==1) {
+      alert('Rock and Rock is a tie');
+      return 0;  
+    }
+    else if (computerSelection==2) {
+      alert('You Lose! Paper beats Rock');
+      return -1;
+    }
+    else {
+      alert('You win! Rock beats Scissors');
+      return 1; 
+    }
+  }
+  else if (playerSelection==2) {
+    if (computerSelection==1) {
+      alert('You win! Paper beats Rock');
+      return 1; 
+    }
+    else if (computerSelection==2) {
+      alert('Paper and Paper is a tie');
+      return 0;
+    } 
+    else {
+      alert('You Lose! Scissors beats Paper');
+      return -1;
+    }
+  }
+  else {
+    if (computerSelection==1) {
+      alert('You Lose! Rock beats Scissors');
+      return -1;
+    }
+    else if (computerSelection==2) {
+      alert('You win! Scissors beats Paper');
+      return 1;
+    }
+    else {
+      alert('Scissors and Scissors is a tie');
+      return 0;
+    }
+  }
+}
+
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+  for (let i=1; i<=5; i++) {
+    let computerSelection = getComputerSelection();
+    let playerSelection = getPlayerSelection();
+    let resultadoRonda = playRound(playerSelection, computerSelection);
+    if (resultadoRonda===-1) computerScore++;
+    else if (resultadoRonda===1) playerScore++;
+  }
+  alert(`Final result: Player (${playerScore}) - Computer (${computerScore})`);
+}
+
+game();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 //----------------FUNCIONES----------------
 
 function getComputerChoice() {
@@ -98,3 +200,5 @@ function game() {
 //----------------EJECUCIÓN DEL PROGRAMA----------------
 
 game();
+
+*/
